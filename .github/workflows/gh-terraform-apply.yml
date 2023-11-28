@@ -37,3 +37,16 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
+    
+    - name: Export Terraform Outputs
+      id: tf
+      run: |
+          echo "API_KEY=$(terraform output api_key)"
+          echo "WEBAPP_NAME=$(terraform output webapp_name)"
+          echo "OUTPUT_ID=$(terraform output id)"
+          echo "RESOURCE_GROUP=$(terraform output resource_group_name)"
+    outputs:
+        API_KEY: ${{ steps.tf.outputs.API_KEY }}
+        WEBAPP_NAME: ${{ steps.tf.outputs.WEBAPP_NAME }}
+        OUTPUT_ID: ${{ steps.tf.outputs.OUTPUT_ID }}
+        RESOURCE_GROUP: ${{ steps.tf.outputs.RESOURCE_GROUP }}
