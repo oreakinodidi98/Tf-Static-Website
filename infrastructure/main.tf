@@ -14,3 +14,13 @@ module "loganalytics" {
   naming_prefix               = var.naming_prefix
   depends_on                  = [azurerm_resource_group.resourcegroup]
 }
+#call the module for static web app
+module "static" {
+  source                      = "./modules/static" 
+  location                    = var.location
+  resourcegroup               = azurerm_resource_group.resourcegroup.name
+  naming_prefix               = var.naming_prefix
+  tags                        = var.tags
+  custom_domain_name          = var.custom_domain_name
+  depends_on                  = [azurerm_resource_group.resourcegroup]
+}
