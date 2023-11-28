@@ -1,6 +1,5 @@
 name: 'Terraform Plan'
-# used GH copilot chat to create this template for me
-# action that provisions infrastructure to Azure
+
 on:
     push:
         branches:
