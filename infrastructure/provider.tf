@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 2.46.0"
     }
+    github = {
+      source  = "integrations/github"
+      version = "4.1.0"
+    }
   }
   #initialise  backend
   backend "azurerm" {
