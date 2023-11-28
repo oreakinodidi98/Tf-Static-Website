@@ -11,3 +11,7 @@ output "webapp_name" {
 output "id" {
   value = module.static.id
 }
+output "domain_name" {
+  value = module.static.domain_name
+  
+}

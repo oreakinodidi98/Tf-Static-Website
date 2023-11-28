@@ -3,8 +3,8 @@ resource "azurerm_static_site" "swa" {
   name                = "${var.naming_prefix}-static-web"
   resource_group_name = var.resourcegroup
   location            = var.location
-  sku_tier = "Free"
-  sku_size = "Free"
+  sku_tier = "Standard"
+  sku_size = "Standard"
 #   identity {
 #     type = "SystemAssigned"
 #   }

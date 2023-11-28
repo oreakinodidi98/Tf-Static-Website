@@ -10,3 +10,7 @@ output "apikey" {
 output "id" {
     value = azurerm_static_site.swa.id
     }
+# output domain name
+output "domain_name" {
+    value = azurerm_static_site.swa.default_host_name
+    }
