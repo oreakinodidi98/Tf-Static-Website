@@ -1,15 +1,9 @@
-locals {
-  tags = {
-    environment = "dev"
-    owner       = "Ore"
-    description = "static web app"
-  }
-}
+
 #create resource group
 resource "azurerm_resource_group" "resourcegroup" {
   name     = var.resourcegroup
   location = var.location
-  tags     = local.tags
+  tags     = var.tags
 }
 #call the module for log analytics
 module "loganalytics" {
