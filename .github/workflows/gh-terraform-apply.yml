@@ -1,6 +1,7 @@
 name: 'Terraform Apply'
 # used GH copilot chat to create this template for me
 # action that provisions infrastructure to Azure
+#event that will trigger action 
 on:
     push:
         branches:
@@ -8,7 +9,7 @@ on:
         paths:
             - '**.tf'
     workflow_dispatch:
-
+#env variables
 env:
     ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
     ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
@@ -20,24 +21,29 @@ env:
 
 permissions:
   contents: read
-
+#job section -> single job called terraform
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
+    #use bash shell regardless of github actions runner 
+    defaults:
+      run:
+        shell: bash
+# clone repo to runner machine 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
+# setup terraform on runner machine
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.4.2
-
+#initialize terraform
     - name: Terraform Init
       run: terraform init
-
+# apply terraform
     - name: Terraform Apply
       run: terraform apply -auto-approve
     
