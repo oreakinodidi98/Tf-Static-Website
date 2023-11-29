@@ -62,11 +62,13 @@ jobs:
           echo "WEBAPP_NAME=$(terraform output webapp_name)"
           echo "OUTPUT_ID=$(terraform output id)"
           echo "RESOURCE_GROUP=$(terraform output resource_group_name)"
+          echo "DOMAIN_NAME=$(terraform output domain_name)"
     outputs:
         API_KEY: ${{ steps.tf.outputs.API_KEY }}
         WEBAPP_NAME: ${{ steps.tf.outputs.WEBAPP_NAME }}
         OUTPUT_ID: ${{ steps.tf.outputs.OUTPUT_ID }}
         RESOURCE_GROUP: ${{ steps.tf.outputs.RESOURCE_GROUP }}
+        DOMAIN_NAME: ${{ steps.tf.outputs.DOMAIN_NAME }}
     
 
   deploy:

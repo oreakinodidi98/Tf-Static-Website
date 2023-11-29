@@ -6,7 +6,7 @@ variable "resourcegroup" {
 variable "location" {
   description = "value for location"
   type        = string
-  default     = "UK South"
+  default     = "eastus2"
 }
 variable "naming_prefix" {
   description = "The naming prefix for all resources in this example"
