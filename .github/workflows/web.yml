@@ -1,11 +1,11 @@
 name: "Deploy Static Website"
 
 on:
-    push:
-        branches:
-            - main
-        paths:
-            - '**.tf'
+    # push:
+    #     branches:
+    #         - main
+    #     paths:
+    #         - '**.tf'
     workflow_dispatch:
 
 env:
