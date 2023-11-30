@@ -17,7 +17,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: terraform_vars_file
-          path: ./terraform_vars.txt
+          path: terraform_vars.txt
       - name: Load Terraform Variables
         run: |
           cat terraform_vars.txt >> $GITHUB_ENV
