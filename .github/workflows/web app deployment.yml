@@ -13,14 +13,29 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - name: Download Terraform Variables
-        uses: actions/download-artifact@v2
+# Logs in with your Azure credentials
+      - name: Azure login
+        uses: azure/login@v1
         with:
-          name: terraform_vars_file
-          path: terraform_vars.txt
-      - name: Load Terraform Variables
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+# Download the file from Azure Blob Storage
+      - name: Download from Azure Blob Storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob download --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_vars.txt --file terraform_vars.txt --container-name ${{ secrets.CONTAINER_NAME }}           
+
+      # - name: Load Terraform Variables
+      #   run: |
+      #     cat terraform_vars.txt >> $GITHUB_ENV
+      - name: Load file content into environment variable
         run: |
-          cat terraform_vars.txt >> $GITHUB_ENV
+          while IFS= read -r line; do
+            echo "MY_VAR_$((++count))=$line" >> $GITHUB_ENV
+          done < terraform_vars.txt
+
       - uses: actions/checkout@v2
         with:
           submodules: true
@@ -28,7 +43,7 @@ jobs:
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ env.API_KEY }}
+          azure_static_web_apps_api_token: ${{ env.MY_VAR_0 }}
           action: "upload"
           app_location: "/website/" # App source code path
          # api_location: "" # Api source code path - optional
