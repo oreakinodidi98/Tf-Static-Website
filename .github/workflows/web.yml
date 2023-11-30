@@ -58,18 +58,18 @@ jobs:
       - name: Export Terraform Outputs
         id: tf
         run: |
-          echo "API_KEY=$(terraform output api_key)" >> "$GITHUB_OUTPUT"
-          echo "WEBAPP_NAME=$(terraform output webapp_name)" >> "$GITHUB_OUTPUT"
-          echo "OUTPUT_ID=$(terraform output id)" >> "$GITHUB_OUTPUT"
-          echo "RESOURCE_GROUP=$(terraform output resource_group_name)" >> "$GITHUB_OUTPUT"
-          echo "DOMAIN_NAME=$(terraform output domain_name)" >> "$GITHUB_OUTPUT"
+          echo "API_KEY=$(terraform output -raw api_key)" >> "$GITHUB_OUTPUT"
+          echo "WEBAPP_NAME=$(terraform output -raw webapp_name)" >> "$GITHUB_OUTPUT"
+          echo "OUTPUT_ID=$(terraform output -raw id)" >> "$GITHUB_OUTPUT"
+          echo "RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> "$GITHUB_OUTPUT"
+          echo "DOMAIN_NAME=$(terraform output -raw domain_name)" >> "$GITHUB_OUTPUT"
     outputs:
         API_KEY: ${{ steps.tf.outputs.API_KEY }}
         WEBAPP_NAME: ${{ steps.tf.outputs.WEBAPP_NAME }}
         OUTPUT_ID: ${{ steps.tf.outputs.OUTPUT_ID }}
         RESOURCE_GROUP: ${{ steps.tf.outputs.RESOURCE_GROUP }}
         DOMAIN_NAME: ${{ steps.tf.outputs.DOMAIN_NAME }}
-        
+
   deploy:
     name: Publish Website
     needs: terraform
