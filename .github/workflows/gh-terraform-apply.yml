@@ -53,12 +53,12 @@ jobs:
     - name: Export Terraform Outputs
       id: tf
       run: |
-          echo "API_KEY=$(terraform output api_key)"
-          echo "WEBAPP_NAME=$(terraform output webapp_name)"
-          echo "OUTPUT_ID=$(terraform output id)"
-          echo "RESOURCE_GROUP=$(terraform output resource_group_name)"
-    outputs:
-        API_KEY: ${{ steps.tf.outputs.API_KEY }}
-        WEBAPP_NAME: ${{ steps.tf.outputs.WEBAPP_NAME }}
-        OUTPUT_ID: ${{ steps.tf.outputs.OUTPUT_ID }}
-        RESOURCE_GROUP: ${{ steps.tf.outputs.RESOURCE_GROUP }}
+          echo "API_KEY=$(terraform output -raw api_key)" > terraform_vars.txt
+          echo "WEBAPP_NAME=$(terraform output -raw webapp_name)" >> terraform_vars.txt
+          echo "OUTPUT_ID=$(terraform output -raw output_id)" >> terraform_vars.txt
+          echo "RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> terraform_vars.txt
+    - name: Upload Terraform Variables
+      uses: actions/upload-artifact@v2
+      with:
+          name: terraform_vars_file
+          path: terraform_vars.txt
