@@ -19,7 +19,8 @@ env:
 
 permissions:
   contents: read
-
+  id-token: write
+  
 jobs:
   terraform:
     name: 'Terraform'
