@@ -21,6 +21,7 @@ env:
 
 permissions:
   contents: read
+  id-token: write
 #job section -> single job called terraform
 jobs:
   terraform:
@@ -58,14 +59,15 @@ jobs:
           echo "OUTPUT_ID=$(terraform output -raw id)" >> terraform_vars.txt
           echo "DOMAIN_NAME=$(terraform output -raw domain_name)" >> terraform_vars.txt
           echo "RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> terraform_vars.txt
+# upload file to artifacts         
     - name: Upload Terraform Variables
       uses: actions/upload-artifact@v2
       with:
           name: terraform_vars_file
-          path: output/static/terraform_vars.txt
+          path: terraform_vars.txt
 # Logs in with your Azure credentials
     - name: Azure login
-      uses: azure/login@v1.4.6
+      uses: azure/login@v1
       with:
         client-id: ${{ secrets.ARM_CLIENT_ID }}
         tenant-id: ${{ secrets.ARM_TENANT_ID }}
