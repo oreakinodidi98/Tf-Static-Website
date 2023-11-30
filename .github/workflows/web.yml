@@ -69,16 +69,24 @@ jobs:
         OUTPUT_ID: ${{ steps.tf.outputs.OUTPUT_ID }}
         RESOURCE_GROUP: ${{ steps.tf.outputs.RESOURCE_GROUP }}
         DOMAIN_NAME: ${{ steps.tf.outputs.DOMAIN_NAME }}
-    
-
+        
   deploy:
     name: Publish Website
     needs: terraform
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+
     steps:
-      
+      - name: Set environment variables
+        run: echo "Setting up environment variables"
+        env:
+          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ needs.terraform.outputs.API_KEY }}
+          WEBAPP_NAME: ${{ needs.terraform.outputs.WEBAPP_NAME }}
+          OUTPUT_ID: ${{ needs.terraform.outputs.OUTPUT_ID }}
+          RESOURCE_GROUP: ${{ needs.terraform.outputs.RESOURCE_GROUP }}
+          DOMAIN_NAME: ${{ needs.terraform.outputs.DOMAIN_NAME }}
+
       - uses: actions/checkout@v2
         with:
           submodules: true
@@ -91,5 +99,3 @@ jobs:
           action: "upload"
           app_location: "website"
           output_location: "public"
-        env:
-          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ needs.terraform.outputs.API_KEY }} 
