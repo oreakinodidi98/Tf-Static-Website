@@ -39,7 +39,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 1.4.2
+        terraform_wrapper: false
 # display the event that triggered the workflow 
     - name: Display Event
       run: echo "The ${{ github.event_name }} event was triggered on ${{ github.event.repository.name }} with ${{ github.event.commits[0].id }}"
