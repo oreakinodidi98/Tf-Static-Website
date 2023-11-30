@@ -1,0 +1,35 @@
+name: Publish website
+
+on:
+  workflow_run:
+    types:
+      - completed
+    workflows:
+      - "Terraform Apply"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - name: Download Terraform Variables
+        uses: actions/download-artifact@v2
+        with:
+          name: terraform_vars_file
+          path: ./terraform_vars.txt
+      - name: Load Terraform Variables
+        run: |
+          cat terraform_vars.txt >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Publish Website
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ env.API_KEY }}
+          action: "upload"
+          app_location: "/website/" # App source code path
+         # api_location: "" # Api source code path - optional
+          output_location: "public" # Built app content directory - optional

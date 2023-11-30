@@ -49,7 +49,7 @@ jobs:
 # apply terraform
     - name: Terraform Apply
       run: terraform apply -auto-approve
-    
+# export terraform outputs to file
     - name: Export Terraform Outputs
       id: tf
       run: |
