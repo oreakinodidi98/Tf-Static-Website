@@ -39,7 +39,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 1.4.2
+        terraform_wrapper: false
 # display the event that triggered the workflow 
     - name: Display Event
       run: echo "The ${{ github.event_name }} event was triggered on ${{ github.event.repository.name }} with ${{ github.event.commits[0].id }}"
@@ -62,10 +62,3 @@ jobs:
       with:
           name: terraform_vars_file
           path: terraform_vars.txt
-    - name: Download Terraform Variables
-      uses: actions/download-artifact@v2
-      with:
-          name: terraform_vars_file
-    - name: Load Terraform Variables
-      run: |
-            cat terraform_vars.txt >> $GITHUB_ENV

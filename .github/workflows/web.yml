@@ -24,11 +24,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v2
+      #   with:
+      #     terraform_version: 1.4.2
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.4.2
-
+          terraform_wrapper: false
+          
       - name: Terraform Format
         id: fmt
         run: terraform fmt
