@@ -77,4 +77,4 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_vars.txt --type block --file terraform_vars.txt --container-name ${{ secrets.CONTAINER_NAME }} 
+          az storage blob upload --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_vars.txt --type block --file terraform_vars.txt --container-name ${{ secrets.CONTAINER_NAME }} --overwrite

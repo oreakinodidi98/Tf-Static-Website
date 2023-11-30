@@ -28,7 +28,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob download --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_vars.txt --file terraform_vars.txt --container-name ${{ secrets.CONTAINER_NAME }}           
+            az storage blob download --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} --name terraform_vars.txt --file terraform_vars.txt --container-name ${{ secrets.CONTAINER_NAME }} --overwrite           
 # Load the file content into environment variables
       - name: Load file content into environment variable
         run: |
