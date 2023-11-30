@@ -13,5 +13,4 @@ output "id" {
 }
 output "domain_name" {
   value = module.static.domain_name
-
 }
