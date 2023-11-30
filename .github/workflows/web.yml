@@ -63,7 +63,6 @@ jobs:
           echo "RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> "$GITHUB_OUTPUT"
           echo "DOMAIN_NAME=$(terraform output -raw domain_name)" >> "$GITHUB_OUTPUT"
     outputs:
-        API_KEY: ${{ steps.tf.outputs.API_KEY }}
         WEBAPP_NAME: ${{ steps.tf.outputs.WEBAPP_NAME }}
         OUTPUT_ID: ${{ steps.tf.outputs.OUTPUT_ID }}
         RESOURCE_GROUP: ${{ steps.tf.outputs.RESOURCE_GROUP }}
@@ -80,7 +79,6 @@ jobs:
       - name: Set environment variables
         run: echo "Setting up environment variables"
         env:
-          AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ needs.terraform.outputs.API_KEY }}
           WEBAPP_NAME: ${{ needs.terraform.outputs.WEBAPP_NAME }}
           OUTPUT_ID: ${{ needs.terraform.outputs.OUTPUT_ID }}
           RESOURCE_GROUP: ${{ needs.terraform.outputs.RESOURCE_GROUP }}
