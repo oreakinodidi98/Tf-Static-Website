@@ -13,7 +13,7 @@ terraform {
       version = "~> 2.46.0"
     }
   }
-  #initialise  backend
+  #initialise  backend test
   backend "azurerm" {
     resource_group_name  = "tfstaterg01"
     storage_account_name = "tfstate011823595792"
